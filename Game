@@ -1,4 +1,6 @@
 //Simon Says
+
+//Anthony Bitmoji
 var drawBitmoji = function(bodyX,bodyY,bodyHeight){
     noStroke();
     fill(0, 0, 0);
@@ -48,13 +50,93 @@ var drawBitmoji = function(bodyX,bodyY,bodyHeight){
     line(bodyX+(bodyHeight/150*22), bodyY+(bodyHeight/150*84), bodyX+(bodyHeight/150*22), bodyY+(bodyHeight/150*103));  // S initial
     line(bodyX+(bodyHeight/150*22), bodyY+(bodyHeight/150*104), bodyX+(bodyHeight/150*2), bodyY+(bodyHeight/150*104));  // S initial
 }; //bitmoji
+
+//Derwin Bitmoji
+var bitmojiX = 205;
+var bitmojiY = 185;
+
+var drawHair1 = function(){
+    //Hair
+    fill(0, 0, 0);
+    ellipse(bitmojiX+107, bitmojiY+115, 73, 63);  
+};
+
+var drawBHF1 = function(){
+    //Body, Head and Face 1
+    fill(196, 33, 33);
+    noStroke();
+    quad(bitmojiX+41, bitmojiY+208, bitmojiX+107, bitmojiY+205, bitmojiX+108, bitmojiY    +172, bitmojiX+69, bitmojiY+164);
+    quad(bitmojiX+171, bitmojiY+208, bitmojiX+107, bitmojiY+205, bitmojiX+107, bitmojiY    +172, bitmojiX+149, bitmojiY+165);
+};
+
+var drawBHF2 = function(){
+    //Body, Head and Face 2
+    stroke(0, 0, 0);
+    fill(156, 100, 50);
+    ellipse(bitmojiX+107, bitmojiY+135, 67, 73);
+    fill(255, 255, 255);
+    arc(bitmojiX+108, bitmojiY+150, 40, 20, 0, 180);
+    line(bitmojiX+88, bitmojiY+150, bitmojiX+127, bitmojiY+150);
+    fill(156, 100, 50);
+    bezier(bitmojiX+110, bitmojiY+125, bitmojiX+144, bitmojiY+182, bitmojiX+26,           bitmojiY+97, bitmojiX+124, bitmojiY+135);
+};
+
+var drawInitials = function(){
+    //Initials
+    fill(0, 0, 0);
+    textSize(33);
+    text("DB", bitmojiX+88, bitmojiY+170);    
+};
+
+var drawHair2 = function(){
+    //Hair 2
+    fill(0, 0, 0);
+    ellipse(bitmojiX+105, bitmojiY+99, 53, 13);
+};
+
+var drawGlasses = function(){
+    //Glasses
+    ellipse(bitmojiX+91, bitmojiY+128, 26, 15);
+    ellipse(bitmojiX+123, bitmojiY+128, 26, 15);
+    line(bitmojiX+103, bitmojiY+127, bitmojiX+110, bitmojiY+127);
+    line(bitmojiX+73, bitmojiY+120, bitmojiX+77, bitmojiY+127);
+    line(bitmojiX+136, bitmojiY+129, bitmojiX+140, bitmojiY+119);
+};
+
+var drawEyes = function(){
+    //eyes
+    fill(156, 100, 50);
+    ellipse(bitmojiX+91, bitmojiY+128, 25, 14);
+    ellipse(bitmojiX+123, bitmojiY+128, 25, 14);
+    fill(255, 255, 255);
+    ellipse(bitmojiX+91, bitmojiY+128, 11, 10);
+    ellipse(bitmojiX+123, bitmojiY+128, 11, 10);
+    fill(0, 0, 0);
+    ellipse(bitmojiX+91, bitmojiY+128, 3, 3);
+    ellipse(bitmojiX+123, bitmojiY+128, 3, 3);
+};
+
+var drawDBitmoji = function(){
+    drawHair1();
+    drawBHF1();
+    drawBHF2();
+    drawInitials();
+    drawHair2();
+    drawGlasses();
+    drawEyes();
+};
     
+drawDBitmoji();    
+
+var currentScene;
 var score = 0;
 var n = random(1, 100);
 
 //Simon Says Color Mode
 var simonSaysColor = function () 
 {
+    currentScene = 2;
+    
     background(145, 134, 134);
     textSize(40);
     text("Color Mode", 100, 40);
@@ -119,6 +201,8 @@ var simonSaysColor = function ()
 
 var simonSaysKeyboard = function()
 {
+    currentScene = 3;
+    
     background(145, 134, 134);
     textSize(40);
     text("Keyboard Mode", 45, 40);
@@ -140,6 +224,8 @@ var simonSaysKeyboard = function()
 //Simon Says Color Screen
 var simonSaysCover = function ()
 {
+    currentScene = 1;
+    
     background(0, 149, 255);
     var f = createFont("monospace", 50);
     textFont(f);
@@ -173,7 +259,7 @@ Button.prototype.isMouseInside = function() {
 };
 
 Button.prototype.handleMouseClick = function() {
-    if (this.isMouseInside()) {
+    if (this.isMouseInside() && currentScene === 1) {
         this.onClick();
     }
 };
@@ -205,6 +291,7 @@ mouseClicked = function() {
     btn2.handleMouseClick();
 };
 
+drawDBitmoji();
     
 };
 
@@ -212,5 +299,3 @@ simonSaysCover();
 //simonSaysColor();
 //simonSaysKeyboard();
 //println(n);
-
-
