@@ -128,27 +128,18 @@ var drawDBitmoji = function(){
     
 drawDBitmoji();    
 
+frameRate(1);
 var currentScene;
 var score = 0;
-var n = random(1, 100);
 
 //Simon Says Color Mode
 var simonSaysColor = function () 
 {
     currentScene = 2;
     
+    var n = random(1, 100);
+    
     background(145, 134, 134);
-    textSize(40);
-    text("Color Mode", 100, 40);
-    text("Score: " + score, 115, 347);
-
-    //Timer
-    textSize(20);
-    fill(0, 0, 0);
-    text("Time", 333, 24);
-    fill(255, 255, 255);
-    var m = millis()%1000;
-    text(m, 340, 50);
     
     //Dark-Red
     fill(110, 30, 30);
@@ -171,13 +162,15 @@ var simonSaysColor = function ()
     {
      fill(255, 0, 0);
      rect(90,100,100,100); 
+     playSound(getSound("retro/laser1"));
     }
     
     //Bright-Blue
     if (n > 25 && n < 50)
     {
      fill(0, 0, 255);
-     rect(210,220,100,100); 
+     rect(210,220,100,100);
+     playSound(getSound("retro/laser2"));
     }
     
     //Bright-Yellow
@@ -185,6 +178,7 @@ var simonSaysColor = function ()
     {
      fill(255, 255, 0);
      rect(90,220,100,100); 
+     playSound(getSound("retro/laser3"));
     }
     
     //Bright-Green
@@ -192,13 +186,38 @@ var simonSaysColor = function ()
     {
      fill(0, 255, 0);
      rect(210,100,100,100);
+     playSound(getSound("retro/laser4"));
     }
+    
+    //Title and Score counter
+    textSize(40);
+    text("Color Mode", 100, 40);
+    text("Score: " + score, 115, 347);
     
     
     
 };
 
+//Draw function for color mode
+draw = function() {
+    if (currentScene === 2)
+    {
+    simonSaysColor();
+    }
+};
 
+//MouseClciked function for colored squares
+mouseClicked = function () 
+{
+    if (mouseX > 0 || mouseX < 400 && mouseY > 0 || mouseY < 400 && currentScene === 2)
+    {
+        fill(255, 0, 0);
+        rect(90,100,100,100); 
+        playSound(getSound("retro/laser4"));
+    }
+};
+
+//Simon says keyboard mode
 var simonSaysKeyboard = function()
 {
     currentScene = 3;
@@ -290,8 +309,8 @@ mouseClicked = function() {
     btn1.handleMouseClick();
     btn2.handleMouseClick();
 };
-
-drawDBitmoji();
+    
+    drawDBitmoji();
     
 };
 
